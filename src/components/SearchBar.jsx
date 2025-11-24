@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { SelectDemo } from "./SelectDemo";
 import { useDispatch, useSelector } from "react-redux";
+import { setSearchedCompanies } from "@/redux/companySlice";
 function SearchBar() {
+  const dispatch = useDispatch();
   const [input, setInput] = useState("");
+  let searchedCompanies = useSelector(
+    (state) => state.company.searchedCompanies
+  );
   let allCompanies = useSelector((state) => state.company.allCompanies);
-  let [selectedCompanies,setSelectedCompanies] = useState([]);
   useEffect(() => {
-    if (input.trim() === "") {
-      if (selectedCompanies.length !== allCompanies.length) {
-        setSelectedCompanies(allCompanies);
+    if (input.trim() === "" && allCompanies.length) {
+      if(searchedCompanies.length!==allCompanies.length){
+        dispatch(setSearchedCompanies(allCompanies));
       }
       return;
     }
-    let filteredCompany = allCompanies.filter(
-      (ele) =>
-        ele.Company.toLowerCase().includes(input.toLowerCase())
-    );
-    setSelectedCompanies(filteredCompany);
-  }, [input]);
+    let filteredCompany = allCompanies.filter((ele) => {
+      return ele.Company.toLowerCase().includes(input.toLowerCase());
+    });
+    dispatch(setSearchedCompanies(filteredCompany));
+  }, [input,allCompanies]);
   return (
     <form className="w-full flex justify-center items-center py-3 lg:py-6 gap-2 lg:gap-2 bg-gray-200">
       <input

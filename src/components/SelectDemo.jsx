@@ -12,7 +12,7 @@ import {
 
 export function SelectDemo() {
   return (
-    <Select>
+    <Select name="select">
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>

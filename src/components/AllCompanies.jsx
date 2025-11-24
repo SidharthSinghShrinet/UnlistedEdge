@@ -2,19 +2,19 @@ import { setSelectedCompany } from "@/redux/companySlice";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 function slugify(name) {
   return name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[().]/g, "")
-    .replace(/--+/g, "-");
+  .toLowerCase()
+  .replace(/\s+/g, "-")
+  .replace(/[().]/g, "")
+  .replace(/--+/g, "-");
 }
 
 function AllCompanies() {
+  let searchedCompanies = useSelector((state)=>state.company.searchedCompanies);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allCompanies = useSelector((state) => state.company.allCompanies);
+  // const allCompanies = useSelector((state) => state.company.allCompanies);
   function handleCompany(company) {
     const slug = slugify(company.Company);
     dispatch(setSelectedCompany(company));
@@ -22,10 +22,10 @@ function AllCompanies() {
   }
   return (
     <div className="lg:w-[62%] w-[90%] h-fit shadow-2xl py-5 flex flex-col lg:gap-2 items-center rounded-3xl my-5 ">
-      {allCompanies.length === 0 ? (
+      {searchedCompanies.length === 0 ? (
         <h1>Loading...</h1>
       ) : (
-        allCompanies.map((company, idx) => (
+        searchedCompanies.map((company, idx) => (
           <div
             onClick={() => handleCompany(company)}
             key={idx}

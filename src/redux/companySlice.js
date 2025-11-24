@@ -7,7 +7,8 @@ const companySlice = createSlice({
         selectedCompany:"",
         revenueData:[],
         profitLossData:[],
-        networth:[]
+        networth:[],
+        searchedCompanies:[]
     },
     reducers:{
         setAllCompanies:(state,action)=>{
@@ -24,9 +25,12 @@ const companySlice = createSlice({
         },
         setNetWorth:(state,action)=>{
             state.networth = action.payload
+        },
+        setSearchedCompanies:(state,action)=>{
+            state.searchedCompanies = action.payload
         }
     }
 })
 
-export const {setAllCompanies,setSelectedCompany,setRevenueData,setProfitLossData,setNetWorth} = companySlice.actions;
+export const {setAllCompanies,setSelectedCompany,setRevenueData,setProfitLossData,setNetWorth,setSearchedCompanies} = companySlice.actions;
 export default companySlice.reducer;
